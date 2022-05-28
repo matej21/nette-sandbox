@@ -1,0 +1,25 @@
+version: "2.4"
+services:
+  php:
+    image: thecodingmachine/php:8.1-v4-cli
+    environment:
+      PHP_EXTENSION_GD: 1
+      NETTE_DEBUG: 1
+    volumes:
+      - ./:/src
+    working_dir: /src
+    command: php -S 0.0.0.0:8080 -t www/ www/index.php
+    ports:
+      - 13000:8080
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: app
+      MYSQL_DATABASE: app
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 13001:3306
+
+volumes:
+  mysql:
